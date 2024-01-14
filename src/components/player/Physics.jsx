@@ -1,5 +1,5 @@
-import { forwardRef, useEffect, useRef } from "react"
-import { RigidBody, CapsuleCollider } from "@react-three/rapier"
+import { forwardRef, useRef, memo } from "react"
+import { RigidBody, CapsuleCollider, CuboidCollider } from "@react-three/rapier"
 import { useGLTF, useAnimations } from "@react-three/drei"
 import Model from "./Model"
 import { useFrame } from "@react-three/fiber"
@@ -44,6 +44,13 @@ const Physics = forwardRef((props, ref) => {
     return (
         <RigidBody ref={body} enabledRotations={[false, false, false]} colliders={false}>
             <CapsuleCollider args={[.5, .5]} position={[0, 1, 0]} />
+            <CuboidCollider
+                position={[0, .8, 0]}
+                args={[.7, .7, .7]}
+                sensor
+                onIntersectionEnter={props.handleIntersectionEnter}
+                onIntersectionExit={props.handleIntersectionExit}
+            />
             <group ref={ref} >
                 <Model ref={group} nodes={nodes} materials={materials} />
             </group>
@@ -53,4 +60,4 @@ const Physics = forwardRef((props, ref) => {
 
 useGLTF.preload("/models/char-v3.glb")
 
-export default Physics
+export default memo(Physics)

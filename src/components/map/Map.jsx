@@ -1,6 +1,7 @@
 import { useGLTF } from "@react-three/drei"
 import { RigidBody } from '@react-three/rapier'
 import Player from "../player/Player"
+import Sensei from "../npcs/Sensei"
 
 const Map = (props) => {
 
@@ -9,7 +10,7 @@ const Map = (props) => {
     return (
         <>
             {/* THIS WILL GO TO ITS OWN MAP */}
-            <RigidBody type="fixed" position-y={-.5} includeInvisible>
+            <RigidBody type="fixed" position-y={-1} includeInvisible>
                 <directionalLight
                     castShadow
                     position={[-6, 8, 2]}
@@ -121,6 +122,7 @@ const Map = (props) => {
             </RigidBody>
 
             <Player />
+            <Sensei />
         </>
     )
 }

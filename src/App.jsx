@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber'
 import { Physics } from '@react-three/rapier'
 import { OrbitControls } from '@react-three/drei'
 import Map from './components/map/Map'
+import GUI from './components/gui/GUI'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Suspense fallback={null}>
           <Physics debug={debugMode}>
             <Map />
+            <GUI />
           </Physics>
         </Suspense>
       </Canvas>
