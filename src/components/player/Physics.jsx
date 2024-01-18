@@ -18,9 +18,9 @@ const Physics = forwardRef((props, ref) => {
     const { nodes, materials, animations } = useGLTF("/models/char-v3.glb")
     const { actions } = useAnimations(animations, group)
 
-
     useFrame(() => {
 
+        //TODO send all this chunk to paren Controller
         //ADD CONDITION if (gameState === "PLAY")
         handleCharacterMovement(input, body, rotation, ref, isMoving )
 
@@ -44,13 +44,6 @@ const Physics = forwardRef((props, ref) => {
     return (
         <RigidBody ref={body} enabledRotations={[false, false, false]} colliders={false}>
             <CapsuleCollider args={[.5, .5]} position={[0, 1, 0]} />
-            <CuboidCollider
-                position={[0, .8, 0]}
-                args={[.7, .7, .7]}
-                sensor
-                onIntersectionEnter={props.handleIntersectionEnter}
-                onIntersectionExit={props.handleIntersectionExit}
-            />
             <group ref={ref} >
                 <Model ref={group} nodes={nodes} materials={materials} />
             </group>

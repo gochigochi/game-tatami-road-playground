@@ -1,19 +1,19 @@
 import { AnimatePresence } from "framer-motion"
 import { useIntersectingEvent } from "../../store/intersectingEvent"
-import NpcNameTag from "./tags/npc_name_tag/NpcNameTag"
+import MapTag from "./tags/map_tag/MapTag"
 
-const GUI = () => {
+const GUIOutcanvas = () => {
 
   const intersectingEvent = useIntersectingEvent(state => state.intersectingEvent)
 
   return (
     <AnimatePresence>
       {
-        intersectingEvent?.isNpc ?
-          <NpcNameTag data={intersectingEvent} /> : null
+        intersectingEvent?.isPortal ?
+          <MapTag intersectingEvent={intersectingEvent} /> : null
       }
     </AnimatePresence>
   )
 }
 
-export default GUI
+export default GUIOutcanvas

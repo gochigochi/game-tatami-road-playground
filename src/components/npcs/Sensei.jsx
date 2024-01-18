@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef, memo } from "react"
+import { useState, useEffect, useRef, memo, useCallback } from "react"
 import { useGLTF, useAnimations } from "@react-three/drei"
-import { CapsuleCollider, RigidBody } from "@react-three/rapier"
+import { CapsuleCollider, CuboidCollider, RigidBody } from "@react-three/rapier"
+import { useIntersectingEvent } from "../../store/intersectingEvent"
 
 const position = [-1, 1, 1]
 const rotation = [0, -Math.PI / 4, 0]
@@ -9,6 +10,7 @@ const type = "kinematicPosition"
 const Sensei = (props) => {
 
     const [data, setData] = useState({})
+    const updateIntersectingEvent = useIntersectingEvent(state => state.updateIntersectingEvent)
     const body = useRef()
     const group = useRef()
     const { nodes, materials, animations } = useGLTF("/models/npc-sensei-tatami-room-lvl1-v5.glb")
@@ -19,25 +21,40 @@ const Sensei = (props) => {
         actions["Idle"].play()
 
         setData({
-            id: "2",
-            name: "たなか",
-            scripts: "hola", 
+            ...props.data,
+            isNpc: true,
             group: group,
         })
 
     }, [])
 
+    const handleIntersectionEnter = useCallback((payload) => {
+        const eventData = payload.target.rigidBodyObject.data
+        updateIntersectingEvent(eventData)
+    })
+
+    const handleIntersectionExit = useCallback(() => {
+        updateIntersectingEvent(null)
+    })
+
     return (
         <RigidBody
             ref={body}
             enabledRotations={[false, false, false]}
-            position={[-2, 0, 0]}
+            position={[-1, 0, 0]}
             // rotation={rotation}
             colliders={false}
-        // type={type}
+            // type={type}
             data={data}
         >
             <CapsuleCollider args={[.5, .5]} position={[0, 1, 0]} />
+            <CuboidCollider
+                position={[0, .8, 0]}
+                args={[.7, .7, .7]}
+                sensor
+                onIntersectionEnter={handleIntersectionEnter}
+                onIntersectionExit={handleIntersectionExit}
+            />
             <group ref={group} {...props} dispose={null}>
                 <group name="Scene">
                     <group name="metarig">

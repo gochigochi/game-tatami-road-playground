@@ -7,14 +7,11 @@ export const useInput = () => {
         left: false,
         right: false,
         cancel: false,
+        enter: false,
         openMenu: false,
         openKanjiBook: false,
         openGrammarBook: false,
         openInventary: false,
-    })
-
-    const interactionInput = useRef({
-        interact: false,
     })
 
     const keys = {
@@ -23,6 +20,7 @@ export const useInput = () => {
         ArrowLeft: "left",
         ArrowRight: "right",
         KeyM: "openMenu",
+        Enter: "enter",
     }
 
     const findKey = (key) => keys[key]
@@ -39,20 +37,15 @@ export const useInput = () => {
                 e.code === "ArrowDown" ||
                 e.code === "ArrowLeft" ||
                 e.code === "ArrowRight" ||
-                e.code === "KeyM"
+                e.code === "KeyM" ||
+                e.code === "Enter"
             ) {
 
                 input.current = {
                     ...input.current,
                     [findKey(e.code)]: true,
                 }
-                // setInput((inputState) => ({ ...inputState, [findKey(e.code)]: true }))
             } 
-
-            if (e.code === "Enter") {
-                interactionInput.current.interact = true
-            }
-
         }
 
         const handleKeyUp = (e) => {
@@ -62,20 +55,15 @@ export const useInput = () => {
                 e.code === "ArrowDown" ||
                 e.code === "ArrowLeft" ||
                 e.code === "ArrowRight" ||
-                e.code === "KeyM"
+                e.code === "KeyM" ||
+                e.code === "Enter"
             ) {
 
                 input.current = {
                     ...input.current,
                     [findKey(e.code)]: false,
                 }
-                // setInput((inputState) => ({ ...inputState, [findKey(e.code)]: false }))
             } 
-
-            if (e.code === "Enter") {
-                interactionInput.current.interact = false
-            }
-
         }
 
         document.addEventListener("keydown", handleKeyDown)
@@ -88,5 +76,5 @@ export const useInput = () => {
 
     }, [])
 
-    return { input, interactionInput }
+    return { input }
 }

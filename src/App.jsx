@@ -4,6 +4,7 @@ import { Physics } from '@react-three/rapier'
 import { OrbitControls } from '@react-three/drei'
 import Map from './components/map/Map'
 import GUI from './components/gui/GUI'
+import GUIOutcanvas from './components/gui_outcanvas/GUIOutcanvas'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           </Physics>
         </Suspense>
       </Canvas>
+      <GUIOutcanvas />
     </>
   )
 }
