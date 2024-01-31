@@ -10,19 +10,19 @@ export const sensei_data = {
                 },
                 {
                     node: 0,
-                    text: "おはよう。lfkajsdf ;dslfj a;sldfj a;sdljfk as;ldfk a;sldfj kj hlkjh lkjh kjh lkjh kljh kjh klh kljh",
+                    text: "<p>おはよう。</p><p>わたしはせんせいです。</p>",
                     nextNode: 1,
                 },
                 {
                     node: 1,
-                    text: "おげんきですか。",
-                    requiresInput: true,
+                    text: "<p>お元気ですか。</p>",
+                    // requiresInput: true,
                     correctAnsw: "げんきです。", // IF CORRECT USE NEXT NODE ELSE GO TO INDEX?
                     nextNode: 2,
                 },
                 {
                     node: 2,
-                    text: "ようかったです・",
+                    text: "<p>ようかったです</p>",
                     isEnd: true,
                     nextCheckpoint: 1,
                 },
@@ -33,7 +33,7 @@ export const sensei_data = {
             checkpointScripts: [
                 {
                     node: 0,
-                    text: "いい天気ですね。<br>どうおもいますか。",
+                    text: "<p>いい天気ですね。どうおもいますか。</p>",
                     isEnd: true,
                 },
             ],

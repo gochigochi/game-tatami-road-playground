@@ -1,11 +1,13 @@
 import { useFrame } from "@react-three/fiber"
-import { useInput } from "../../hooks/useInput"
-import { useGameMap } from "../../store/gameMap"
+import { useInput } from "../../../hooks/useInput"
+import { useGameMap } from "../../../store/gameMap"
+import { useGameState } from "../../../store/gameState"
 
-const EventHandler = ({ intersectingEvent }) => {
+const IntersectingHandler = ({ intersectingEvent }) => {
 
     const { input } = useInput()
     const updateGameMap = useGameMap(state => state.updateGameMap)
+    const updateGameState = useGameState(state => state.updateGameState)
 
     useFrame(() => {
 
@@ -15,7 +17,7 @@ const EventHandler = ({ intersectingEvent }) => {
         }
 
         if (intersectingEvent.isNpc && input.current.enter) {
-            console.log("Start conversation")
+            updateGameState("CHAT")
             input.current.enter = false
         }
     })
@@ -23,4 +25,4 @@ const EventHandler = ({ intersectingEvent }) => {
     return
 }
 
-export default EventHandler
+export default IntersectingHandler

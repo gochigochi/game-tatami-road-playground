@@ -35,4 +35,27 @@ const popIn = {
     }
 }
 
-export { slideUp, popIn}
+const bubblePop = {
+    initial: {
+        scale: 0,
+    },
+    animate: {
+        scale: 1,
+        transition: {
+            duration: .3,
+            type: "spring",
+            bounce: .4,
+        }
+    },
+    exit: {
+        scale: 0,
+        transition: {
+            duration: .3,
+            type: "spring",
+            bounce: .4,
+        }
+    }
+}
+
+
+export { slideUp, popIn, bubblePop}

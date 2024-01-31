@@ -1,10 +1,11 @@
-import { forwardRef, useRef, memo } from "react"
+import { forwardRef, useRef, memo, useEffect } from "react"
 import { RigidBody, CapsuleCollider, CuboidCollider } from "@react-three/rapier"
 import { useGLTF, useAnimations } from "@react-three/drei"
 import Model from "./Model"
 import { useFrame } from "@react-three/fiber"
 import { handleCharacterMovement } from "../../lib/handleCharacterMovement"
 import { useInput } from "../../hooks/useInput"
+import { useGameState } from "../../store/gameState"
 
 const Physics = forwardRef((props, ref) => {
 
@@ -17,12 +18,14 @@ const Physics = forwardRef((props, ref) => {
     const { input } = useInput()
     const { nodes, materials, animations } = useGLTF("/models/char-v3.glb")
     const { actions } = useAnimations(animations, group)
+    const gameState = useGameState(state => state.gameState)
 
     useFrame(() => {
 
         //TODO send all this chunk to paren Controller
-        //ADD CONDITION if (gameState === "PLAY")
-        handleCharacterMovement(input, body, rotation, ref, isMoving )
+        if (gameState === "PLAY") {
+            handleCharacterMovement(input, body, rotation, ref, isMoving )
+        }
 
         if (isMoving.current) {
 

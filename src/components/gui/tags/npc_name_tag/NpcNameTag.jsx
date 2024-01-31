@@ -1,5 +1,4 @@
 import { Html } from '@react-three/drei'
-import * as THREE from 'three'
 import { motion } from 'framer-motion'
 import { slideUp } from '../../../../variants/variants'
 
@@ -13,7 +12,7 @@ const styles = {
 
 const NpcNameTag = ({ data }) => {
 
-  const position = data.group.current.getWorldPosition(new THREE.Vector3)
+  const position = data.position
 
   return (
     <Html position={[position.x, position.y + 2, position.z]}>

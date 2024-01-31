@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, memo, useCallback } from "react"
+import * as THREE from 'three'
 import { useGLTF, useAnimations } from "@react-three/drei"
 import { CapsuleCollider, CuboidCollider, RigidBody } from "@react-three/rapier"
 import { useIntersectingEvent } from "../../store/intersectingEvent"
@@ -8,6 +9,8 @@ const rotation = [0, -Math.PI / 4, 0]
 const type = "kinematicPosition"
 
 const Sensei = (props) => {
+
+    // TODO: SEND ALL LOGIT TO A WRAPPER COMPONENT
 
     const [data, setData] = useState({})
     const updateIntersectingEvent = useIntersectingEvent(state => state.updateIntersectingEvent)
@@ -29,7 +32,14 @@ const Sensei = (props) => {
     }, [])
 
     const handleIntersectionEnter = useCallback((payload) => {
-        const eventData = payload.target.rigidBodyObject.data
+
+        const eventData = {
+            ...payload.target.rigidBodyObject.data,
+            // position: payload.target.rigidBodyObject.data.group.current.getWorldPosition(new THREE.Vector3)
+            position: payload.target.rigidBodyObject.position,
+            playerPosition: payload.other.rigidBodyObject.position,
+        }
+
         updateIntersectingEvent(eventData)
     })
 
