@@ -3,33 +3,36 @@ import { motion } from 'framer-motion'
 import DOMPurify from 'dompurify'
 import { bubblePop } from '../../../variants/variants'
 
-const Chat = ({
+const NpcBubble = ({
     npcPosition,
-    text
+    text,
+    flipped,
 }) => {
-
-
-    console.log("CHAT RENDER")
 
     return (
         <>
             <Html 
-                wrapperClass="bubbleWrapper"
+                wrapperClass="bubble-wrapper"
                 position={[npcPosition.x, npcPosition.y + 2, npcPosition.z]}
             >
                 <motion.div
-                    className="bubbleMotionWrapper"
+                    className="bubble-motion-wrapper"
                     key="box"
                     variants={bubblePop}
                     initial="initial"
                     animate="animate"
                     exit="exit"
                 >
-                    <div className="bubble" dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(text)}} />
+                    <div className={`bubble ${flipped ? "flipped" : ""}`}>
+                        <div 
+                            className={`text ${flipped ? "flipped" : ""}`} 
+                            dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(text)}} 
+                        />
+                    </div>
                 </motion.div>
             </Html>
         </>
     )
 }
 
-export default Chat
+export default NpcBubble

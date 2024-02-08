@@ -37,12 +37,12 @@ const popIn = {
 
 const bubblePop = {
     initial: {
-        scale: 0,
+        scale: .8,
     },
     animate: {
         scale: 1,
         transition: {
-            duration: .3,
+            duration: .2,
             type: "spring",
             bounce: .4,
         }

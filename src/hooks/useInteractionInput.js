@@ -1,15 +1,12 @@
 import { useEffect } from "react"
 
-const useInteractionInput = (listener, deps) => {
+const useInteractionInput = (handler, deps) => {
 
     useEffect(() => {
 
-        document.addEventListener("keydown", listener)
+        document.addEventListener("keydown", handler)
 
-        return () => {
-            console.log("HERE")
-            document.removeEventListener("keydown", listener)
-        }
+        return () => document.removeEventListener("keydown", handler)
 
     }, deps)
 }

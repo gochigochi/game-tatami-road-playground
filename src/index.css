@@ -38,15 +38,17 @@ button {
   z-index: 999;
 }
 
-.bubbleWrapper {
+/* ---------------------------------------- SPEECH BUBBLES */
+
+.bubble-wrapper {
   width: 100%;
 }
 
-.bubbleWrapper > div {
+.bubble-wrapper > div {
   width: 100%;
 }
 
-.bubbleMotionWrapper {
+.bubble-motion-wrapper {
   position: absolute;
   bottom: 0;
 }
@@ -69,7 +71,55 @@ button {
   left: 12px;
   border-style: solid;
   border-width: 15px;
-  /* border-width: 10px; */
   border-color: #fff transparent transparent #fff;
   transform: rotate(10deg);
+  z-index: -1;
+}
+
+.flipped {
+  transform: rotate3d(0, 1, 0, 180deg);
+}
+
+.input-bubble {
+  position: relative;
+  border: none;
+  border-bottom: 1px solid #ededed;
+}
+
+.input-bubble:focus {
+  outline: none;
+  border-bottom: 1px solid black;
+}
+
+@keyframes pulse {
+  43% {
+    border-bottom: 1px solid #ededed;
+    bottom: 0;
+  }
+  50% {
+    border-bottom: 1px solid black;
+    bottom: 2px;
+  }
+  58% {
+    border-bottom: 1px solid #ededed;
+    bottom: 0;
+  }
+}
+
+.input-bubble:not(:focus-within) {
+  animation: 4s infinite pulse;
+}
+
+.draggable {
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: .4rem;
+  cursor: grab;
+}
+
+.hidden {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
 }
