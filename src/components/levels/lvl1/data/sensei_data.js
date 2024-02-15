@@ -13,25 +13,11 @@ export const sensei_data = {
                     text: "<p>おはよう。</p><p>わたしはせんせいです。</p>",
                     nextNode: 1,
                 },
-                // {
-                //     node: 1,
-                //     text: "<p>お元気ですか。</p>",
-                //     requiresInput: true,
-                //     correctAnsw: "げんきです。", // IF CORRECT USE NEXT NODE ELSE GO TO INDEX?
-                //     nextNode: 2,
-                // },
-                // {
-                //     node: 2,
-                //     text: "<p>ようかったです</p>",
-                //     isEnd: true,
-                //     nextCheckpoint: 1,
-                // },
                 {
                     node: 1,
                     text: "<p>お元気ですか。</p>",
-                    requiresDrag: true,
-                    draggables: ["げんき", "です", "はい、"],
-                    correctAnsw: "はい、げんきです。", // IF CORRECT USE NEXT NODE ELSE GO TO INDEX?
+                    requiresInput: true,
+                    correctAnsw: "げんきです。", // IF CORRECT USE NEXT NODE ELSE GO TO INDEX?
                     nextNode: 2,
                 },
                 {
@@ -40,6 +26,20 @@ export const sensei_data = {
                     isEnd: true,
                     nextCheckpoint: 1,
                 },
+                // {
+                //     node: 1,
+                //     text: "<p>お元気ですか。</p>",
+                //     requiresDrag: true,
+                //     draggables: ["げんき", "です", "はい、"],
+                //     correctAnsw: "はい、げんきです。", // IF CORRECT USE NEXT NODE ELSE GO TO INDEX?
+                //     nextNode: 2,
+                // },
+                // {
+                //     node: 2,
+                //     text: "<p>ようかったです</p>",
+                //     isEnd: true,
+                //     nextCheckpoint: 1,
+                // },
             ],
         },
         {

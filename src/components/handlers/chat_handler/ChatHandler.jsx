@@ -5,10 +5,11 @@ import { useGameState } from '../../../store/gameState'
 import PlayerInputBubble from './PlayerInputBubble'
 import NpcBubble from './NpcBubble'
 import PlayerDraggablesBubble from './PlayerDraggablesBubble'
+import { cleanedString } from '../../../lib/cleanString'
 
 const ChatHandler = ({ data }) => {
 
-    console.log("DATA...", data)
+    // console.log("DATA...", data)
 
     const gameCheckpoint = useGameProgress(state => state.gameCheckpoint)
     const updateGameState = useGameState(state => state.updateGameState)
@@ -32,27 +33,32 @@ const ChatHandler = ({ data }) => {
         setTimeout(() => setCurrentScript(nextScript), 200)
     }
 
-    const handleInputSubmit = (e) => {
+    const evaluateAnswer = (answ, correctAnsw, setter) => {
 
-        e.preventDefault()
-
-        //TRIM INPUT, REMOVE POINTS AND COMMAS
-
-        if (inputRef.current.value === currentScript.correctAnsw) {
+        if (cleanedString(answ) === cleanedString(correctAnsw)) {
 
             getNextScript(currentScript.nextNode)
 
         } else {
 
             getNextScript("error")
+
         }
 
-        setHasInput(false)
+        setter(false)
+
+    }
+
+    const handleInputSubmit = (e) => {
+
+        e.preventDefault()
+
+        evaluateAnswer(inputRef.current.value, currentScript.correctAnsw, setHasInput)
+
     }
 
     const handleDraggablesSubmit = (answ) => {
-
-        console.log("handle drag....", answ)
+        evaluateAnswer(answ, currentScript.correctAnsw, setHasDraggables)
     }
 
     const end = () => {
@@ -67,8 +73,8 @@ const ChatHandler = ({ data }) => {
 
         if (e.code === "Enter" && !hasInput && !hasDraggables) {
 
-            console.log("checkpointScripts....", currentCheckpointScripts)
-            console.log("currentScript....", currentScript)
+            // console.log("checkpointScripts....", currentCheckpointScripts)
+            // console.log("currentScript....", currentScript)
 
             if (currentScript?.requiresInput) {
                 return setHasInput(true)

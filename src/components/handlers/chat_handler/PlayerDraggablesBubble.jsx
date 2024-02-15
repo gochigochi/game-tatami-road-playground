@@ -1,41 +1,23 @@
 import { useState, useRef, forwardRef } from 'react'
 import { Html } from '@react-three/drei'
-import { motion } from 'framer-motion'
+import { Reorder, motion } from 'framer-motion'
 import { bubblePop } from '../../../variants/variants'
 
 const PlayerDraggablesBubble = forwardRef((props, ref) => {
 
-    const [draggablesState, setDraggablesState] = useState(props.draggables)
-    const [parsedDraggables, setParsedDraggables] = useState(props.draggables.join(""))
-    const dragged = useRef()
-    const draggedOver = useRef()
+    const [draggables, setDraggables] = useState(props.draggables)
 
     const handleSubmit = (e) => {
-        
+
         e.preventDefault()
 
-        props.handleDraggablesSubmit(draggablesState)
+        props.handleDraggablesSubmit(draggables.join(""))
+        
     }
 
-    const handleDragStart = (draggable) => dragged.current = draggable
+    const giveFocus = () => ref.current.focus()
 
-    const handleDragEnter = (draggable) => draggedOver.current = draggable
-
-    const handleDragEnd = () => {
-
-        const draggedIndex = draggablesState.indexOf(dragged.current)
-        const draggedOverIndex = draggablesState.indexOf(draggedOver.current)
-        const draggablesCopy = [...draggablesState]
-
-        draggablesCopy[draggedOverIndex] = draggablesCopy.splice(draggedIndex, 1, draggablesCopy[draggedOverIndex])[0]
-        setDraggablesState(draggablesCopy)
-        setParsedDraggables(draggablesCopy.join(""))
-        ref.current.focus()
-    }
-
-
-    // console.log("DRAGGABLES STATE>.....", draggablesState)
-    console.log("DRAGGABLES STATE>.....", parsedDraggables)
+    // console.log("DRAGGABLES...", draggables)
 
     return (
         <Html
@@ -52,35 +34,31 @@ const PlayerDraggablesBubble = forwardRef((props, ref) => {
             >
                 <div
                     className={`bubble ${props.flipped ? "flipped" : ""}`}
-                    styles={{ "display": "flex", "gap": ".2rem" }}
+                    style={{ "display": "flex", "gap": ".2rem" }}
                 >
-                    {
-                        draggablesState.map(draggable => {
-                            return (
-                                <motion.span
-                                    key={draggable}
-                                    className="draggable"
-                                    draggable="true"
-                                    droppable="true"
-                                    onDragStart={() => handleDragStart(draggable)}
-                                    onDragEnter={() => handleDragEnter(draggable)}
-                                    onDragEnd={handleDragEnd}
-                                >
-                                    {draggable}
-                                </motion.span>
-                            )
-                        })
-                    }
-                    <form
-                        noValidate
-                        onSubmit={handleSubmit}
-                    >
+                    <Reorder.Group axis="x" values={draggables} onReorder={setDraggables} style={{ listStyleType: "none", display: "flex", gap: ".2rem" }}>
+                        {
+                            draggables.map(draggable => {
+                                return (
+                                    <Reorder.Item
+                                        key={draggable}
+                                        value={draggable}
+                                        className="draggable"
+                                        onDragStart={giveFocus}
+                                        onTap={giveFocus}
+                                    >
+                                        {draggable}
+                                    </Reorder.Item>
+                                )
+                            })
+                        }
+                    </Reorder.Group>
+                    <form noValidate onSubmit={handleSubmit}>
                         <input
                             ref={ref}
                             name="answ"
                             type="text"
-                            value={parsedDraggables}
-                            className='hidden'
+                            className="hidden"
                             autoFocus
                             readOnly
                         />

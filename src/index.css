@@ -62,6 +62,10 @@ button {
     transform-origin: bottom left;
 }
 
+.bubble p, .bubble span {
+  font-size: 1.5rem;
+}
+
 .bubble:before {
   content: "";
   display: block;
@@ -111,9 +115,9 @@ button {
 }
 
 .draggable {
-  border: 1px solid black;
-  border-radius: 8px;
-  padding: .4rem;
+  background-color: #ededed;
+  border-radius: 24px;
+  padding: .4rem .8rem;
   cursor: grab;
 }
 
